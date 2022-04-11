@@ -14,7 +14,8 @@ const resolvers = {
             return data;
           }
           throw new AuthenticationError('Not logged in');
-          },
+          }
+        },
 
         Mutation: {
     addUser: async (parent, args) => {
@@ -42,7 +43,7 @@ const resolvers = {
     saveBook: async (parent, args, context) => {
         if (context.user) {
   
-          const user = await User.findByIdAndUpdate(
+          const user = await User.findOneAndUpdate(
             { _id: context.user._id },
             { $push: { savedBooks: {args} }},
             { new: true, runValidators: true  }
@@ -52,7 +53,7 @@ const resolvers = {
         }
     },
 }
-    }};
+    };
 
  
   
